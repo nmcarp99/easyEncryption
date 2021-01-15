@@ -1,7 +1,7 @@
 using System;
 
-namespace encryption {
-	class encryptedString {
+namespace easyEncryption {
+	public class encryptedString {
 		public string encryptedValue = "";
 		public void encrypt(string stringToEncrypt, string key) {
 			int keyMultiplier = 1;
