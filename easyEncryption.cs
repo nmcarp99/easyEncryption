@@ -4,14 +4,14 @@ namespace easyEncryption {
 	public class encryptedString {
 		public string encryptedValue = "";
 		public void encrypt(string stringToEncrypt, string key) {
-			int keyMultiplier = 1;
+			long keyMultiplier = 1;
 			string output = "";
 			foreach (char currentChar in key) {
-				keyMultiplier = keyMultiplier * ((int)currentChar % 3);
+				keyMultiplier = keyMultiplier * (((char)currentChar % 3) + 1);
 			}
 			foreach (char currentChar in stringToEncrypt) {
-				int currentCharAsInt = (int)currentChar;
-				int extra255s;
+				long currentCharAsInt = (int)currentChar;
+				long extra255s;
 				string extra255sAsString;
 				currentCharAsInt = currentCharAsInt * keyMultiplier;
 				extra255s = (currentCharAsInt - (currentCharAsInt % 255)) / 255;
@@ -26,14 +26,14 @@ namespace easyEncryption {
 		}
 		
 		public void decrypt(string stringToDecrypt, string key) {
-			int keyMultiplier = 1;
+			long keyMultiplier = 1;
 			string output = "";
 			foreach (char currentChar in key) {
-				keyMultiplier = keyMultiplier * ((int)currentChar % 3);
+				keyMultiplier = keyMultiplier * (((char)currentChar % 3) + 1);
 			}
 			for (int i = 0; i < stringToDecrypt.Length; i = i + 3) {
-				int charAsInt = (int)stringToDecrypt[i];
-				int extra255s = Int32.Parse(stringToDecrypt[i + 1].ToString() + stringToDecrypt[i + 2].ToString());
+				long charAsInt = (int)stringToDecrypt[i];
+				long extra255s = Int32.Parse(stringToDecrypt[i + 1].ToString() + stringToDecrypt[i + 2].ToString());
 				charAsInt += (255 * extra255s);
 				charAsInt = charAsInt / keyMultiplier;
 				output += (char)charAsInt;
